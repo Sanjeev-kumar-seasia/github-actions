@@ -24,11 +24,12 @@ jobs:
 
       # Step 3: Dynamically Create the Task Definition
       - name: Create ECS Task Definition
-        id: create-task-def
         run: |
           cat <<EOF > taskdefinition.json
           {
             "family": "${{ secrets.ECS_TASK_FAMILY }}",
+            "executionRoleArn": "${{ secrets.ECS_EXECUTION_ROLE_ARN }}",
+            "networkMode": "awsvpc",
             "containerDefinitions": [
               {
                 "name": "${{ secrets.ECS_CONTAINER_NAME }}",
@@ -39,11 +40,16 @@ jobs:
                 "portMappings": [
                   {
                     "containerPort": 80,
-                    "hostPort": 80
+                    "protocol": "tcp"
                   }
                 ]
               }
-            ]
+            ],
+            "requiresCompatibilities": [
+              "FARGATE"
+            ],
+            "cpu": "${{ secrets.ECS_CPU }}",
+            "memory": "${{ secrets.ECS_MEMORY }}"
           }
           EOF
 
