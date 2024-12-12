@@ -66,8 +66,8 @@ jobs:
                 ],
                 "secrets": [
                   {
-                    "name": "DATABASE",
-                    "valueFrom": "arn:aws:secretsmanager:eu-west-2:311141532026:secret:github_actions-aPPKOt"
+                    "name": "Database",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:311141532026:secret:github_actions-kspcoO"
                   }
                 ]
               }
